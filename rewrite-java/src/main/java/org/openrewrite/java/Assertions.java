@@ -99,8 +99,14 @@ public class Assertions {
         });
     }
 
-    private static final Parser.Builder javaParser = JavaParser.fromJavaVersion()
+    private static Parser.Builder javaParser = JavaParser.fromJavaVersion()
             .logCompilationWarningsAndErrors(true);
+    
+    public static Parser.Builder setJavaParser(Parser.Builder javaParser) {
+    	Parser.Builder before = Assertions.javaParser;
+		Assertions.javaParser = javaParser;
+		return before;
+	}
 
     public static SourceSpecs java(@Language("java") @Nullable String before, Consumer<SourceSpec<J.CompilationUnit>> spec) {
         SourceSpec<J.CompilationUnit> java = new SourceSpec<>(
